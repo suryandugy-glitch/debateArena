@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  background: #f2ead8;
+  font-family: 'Courier Prime', monospace;
+}
+
+header {
+  background: #1a1108;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+#setup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#topic-input {
+  padding: 20px;
+  font-size: 1.2rem;
+  min-height: 120px;
+}
+
+.modes {
+  display: flex;
+  gap: 10px;
+}
+
+.stance {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.active {
+  background: black;
+  color: white;
+}
+
+#start-btn {
+  padding: 20px;
+  background: crimson;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#debate {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#chat {
+  background: white;
+  border: 2px solid black;
+  height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.msg {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 75%;
+}
+
+.user {
+  background: black;
+  color: white;
+  margin-left: auto;
+}
+
+.ai {
+  background: #eee;
+}
+
+.input-wrap {
+  display: flex;
+}
+
+#user-input {
+  flex: 1;
+  padding: 20px;
+}
+
+#send-btn {
+  width: 150px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
