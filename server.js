@@ -78,13 +78,12 @@ AI:
 
   } catch (err) {
 
-    console.error(err);
+  console.error("FULL ERROR:", err);
 
-    res.status(500).json({
-      error: 'AI failed'
-    });
-  }
-});
+  res.status(500).json({
+    error: err.message
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
