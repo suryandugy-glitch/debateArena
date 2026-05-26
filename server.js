@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import Anthropic from '@anthropic-ai/sdk';
 
 dotenv.config();
 
@@ -10,10 +9,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY
-});
 
 app.post('/chat', async (req, res) => {
 
@@ -25,38 +20,59 @@ app.post('/chat', async (req, res) => {
       history
     } = req.body;
 
-    const system = `
-You are an aggressive debate opponent.
+    const prompt = `
+You are an aggressive AI debate opponent.
 
 Current stance: ${stance}
 
 Rules:
 - Never agree
 - Be persuasive
-- Be sharp
-- Keep responses short
+- Sound confident
+- Keep replies short
+- Debate like a human
+
+Conversation:
+${history.map(h =>
+`${h.role}: ${h.content}`
+).join('\n')}
+
+User:
+${message}
+
+AI:
 `;
 
-    const response =
-      await anthropic.messages.create({
+    const response = await fetch(
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
 
-        model: 'claude-3-5-sonnet-20241022',
+        headers: {
+          'Content-Type': 'application/json'
+        },
 
-        max_tokens: 300,
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: prompt
+                }
+              ]
+            }
+          ]
+        })
+      }
+    );
 
-        system,
+    const data = await response.json();
 
-        messages: [
-          ...history,
-          {
-            role: 'user',
-            content: message
-          }
-        ]
-      });
+    console.log(data);
 
     const reply =
-      response.content[0].text;
+      data.candidates?.[0]?.content?.parts?.[0]?.text
+      || 'No AI response';
 
     res.json({ reply });
 
@@ -65,14 +81,15 @@ Rules:
     console.error(err);
 
     res.status(500).json({
-      error: 'AI error'
+      error: 'AI failed'
     });
   }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
+
   console.log(
     `Server running on http://localhost:${PORT}`
   );
