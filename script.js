@@ -61,7 +61,7 @@ async function aiReply(message) {
   try {
 
     const response = await fetch(
-      'http://localhost:3000/chat',
+      'http://localhost:5000/chat',
       {
         method: 'POST',
         headers: {
