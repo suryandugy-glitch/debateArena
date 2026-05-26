@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debate Arena</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime&family=Playfair+Display&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>⚔ Debate Arena</h1>
+  <p>The AI that never backs down.</p>
+</header>
+
+<main>
+
+  <div id="setup">
+
+    <textarea
+      id="topic-input"
+      placeholder="Enter debate topic..."
+    ></textarea>
+
+    <div class="modes">
+
+      <button class="stance active" data-stance="for">
+        FOR
+      </button>
+
+      <button class="stance" data-stance="against">
+        AGAINST
+      </button>
+
+      <button class="stance" data-stance="devil">
+        DEVIL
+      </button>
+
+    </div>
+
+    <button id="start-btn">
+      Start Debate
+    </button>
+
+  </div>
+
+  <div id="debate">
+
+    <div id="chat"></div>
+
+    <div class="input-wrap">
+
+      <textarea
+        id="user-input"
+        placeholder="Type your argument..."
+      ></textarea>
+
+      <button id="send-btn">
+        Send
+      </button>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
