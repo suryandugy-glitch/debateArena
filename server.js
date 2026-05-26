@@ -44,7 +44,7 @@ AI:
 `;
 
     const response = await fetch(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
 
@@ -68,7 +68,7 @@ AI:
 
     const data = await response.json();
 
-    console.log(data);
+    console.log(JSON.stringify(data, null, 2));
 
     const reply =
       data.candidates?.[0]?.content?.parts?.[0]?.text
@@ -78,12 +78,13 @@ AI:
 
   } catch (err) {
 
-  console.error("FULL ERROR:", err);
+    console.error('FULL ERROR:', err);
 
-  res.status(500).json({
-    error: err.message
-  });
-}
+    res.status(500).json({
+      error: err.message
+    });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 
