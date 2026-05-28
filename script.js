@@ -1,110 +1,277 @@
-const topicInput = document.getElementById('topic-input');
-const startBtn = document.getElementById('start-btn');
-const debate = document.getElementById('debate');
-const setup = document.getElementById('setup');
-const chat = document.getElementById('chat');
+/* FIRELIES */
 
-const userInput = document.getElementById('user-input');
-const sendBtn = document.getElementById('send-btn');
+(function () {
 
-let stance = 'for';
-let history = [];
+  const canvas = document.getElementById('fireflies');
+  const ctx = canvas.getContext('2d');
 
-document.querySelectorAll('.stance').forEach(btn => {
-  btn.addEventListener('click', () => {
+  let W, H;
+  let flies = [];
 
-    document.querySelectorAll('.stance')
-      .forEach(b => b.classList.remove('active'));
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
 
-    btn.classList.add('active');
+  resize();
 
-    stance = btn.dataset.stance;
-  });
-});
+  window.addEventListener('resize', resize);
 
-startBtn.addEventListener('click', async () => {
+  for (let i = 0; i < 50; i++) {
 
-  const topic = topicInput.value.trim();
-
-  if (!topic) return;
-
-  setup.style.display = 'none';
-  debate.style.display = 'flex';
-
-  await aiReply(
-    `Start the debate on: ${topic}`
-  );
-});
-
-sendBtn.addEventListener('click', sendMessage);
-
-async function sendMessage() {
-
-  const text = userInput.value.trim();
-
-  if (!text) return;
-
-  addMessage(text, 'user');
-
-  history.push({
-    role: 'user',
-    content: text
-  });
-
-  userInput.value = '';
-
-  await aiReply(text);
-}
-
-async function aiReply(message) {
-
-  try {
-
-    const response = await fetch(
-      'http://localhost:5000/chat',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify({
-          message,
-          stance,
-          history
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    addMessage(data.reply, 'ai');
-
-    history.push({
-      role: 'assistant',
-      content: data.reply
+    flies.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 2 + 1,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5
     });
 
-  } catch (err) {
-
-    addMessage(
-      'Error connecting to AI server.',
-      'ai'
-    );
-
-    console.error(err);
   }
-}
 
-function addMessage(text, type) {
+  function draw() {
 
-  const div = document.createElement('div');
+    ctx.clearRect(0, 0, W, H);
 
-  div.className = `msg ${type}`;
+    flies.forEach(f => {
 
-  div.textContent = text;
+      f.x += f.vx;
+      f.y += f.vy;
 
-  chat.appendChild(div);
+      if (f.x < 0) f.x = W;
+      if (f.x > W) f.x = 0;
 
-  chat.scrollTop = chat.scrollHeight;
-}
+      if (f.y < 0) f.y = H;
+      if (f.y > H) f.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+
+      ctx.fillStyle = 'rgba(200,120,14,0.7)';
+      ctx.fill();
+
+    });
+
+    requestAnimationFrame(draw);
+
+  }
+
+  draw();
+
+})();
+
+/* DATE */
+
+const d = new Date();
+
+const months = [
+  'Jan','Feb','Mar','Apr',
+  'May','Jun','Jul','Aug',
+  'Sep','Oct','Nov','Dec'
+];
+
+document.getElementById('header-date-el').innerHTML =
+  `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+/* STANCE */
+
+let stance = "for";
+
+document.querySelectorAll('.stance-opt').forEach(el => {
+
+  el.addEventListener('click', () => {
+
+    document
+      .querySelectorAll('.stance-opt')
+      .forEach(x => x.classList.remove('active'));
+
+    el.classList.add('active');
+
+    stance = el.dataset.stance;
+
+  });
+
+});
+
+/* INTENSITY */
+
+let intensity = "sharp";
+
+document.querySelectorAll('.int-btn').forEach(el => {
+
+  el.addEventListener('click', () => {
+
+    document
+      .querySelectorAll('.int-btn')
+      .forEach(x => x.classList.remove('active'));
+
+    el.classList.add('active');
+
+    intensity = el.dataset.intensity;
+
+  });
+
+});
+
+/* ENABLE START BUTTON */
+
+const topicInput =
+  document.getElementById('topic-input');
+
+const startBtn =
+  document.getElementById('start-btn');
+
+topicInput.addEventListener('input', () => {
+
+  startBtn.disabled =
+    !topicInput.value.trim();
+
+});
+
+/* START */
+
+startBtn.addEventListener('click', () => {
+
+  alert(
+    `Debate Started!\n\nTopic: ${topicInput.value}\nAI Stance: ${stance}\nIntensity: ${intensity}`
+  );
+
+});/* FIRELIES */
+
+(function () {
+
+  const canvas = document.getElementById('fireflies');
+  const ctx = canvas.getContext('2d');
+
+  let W, H;
+  let flies = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  resize();
+
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 50; i++) {
+
+    flies.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 2 + 1,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5
+    });
+
+  }
+
+  function draw() {
+
+    ctx.clearRect(0, 0, W, H);
+
+    flies.forEach(f => {
+
+      f.x += f.vx;
+      f.y += f.vy;
+
+      if (f.x < 0) f.x = W;
+      if (f.x > W) f.x = 0;
+
+      if (f.y < 0) f.y = H;
+      if (f.y > H) f.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+
+      ctx.fillStyle = 'rgba(200,120,14,0.7)';
+      ctx.fill();
+
+    });
+
+    requestAnimationFrame(draw);
+
+  }
+
+  draw();
+
+})();
+
+/* DATE */
+
+const d = new Date();
+
+const months = [
+  'Jan','Feb','Mar','Apr',
+  'May','Jun','Jul','Aug',
+  'Sep','Oct','Nov','Dec'
+];
+
+document.getElementById('header-date-el').innerHTML =
+  `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+/* STANCE */
+
+let stance = "for";
+
+document.querySelectorAll('.stance-opt').forEach(el => {
+
+  el.addEventListener('click', () => {
+
+    document
+      .querySelectorAll('.stance-opt')
+      .forEach(x => x.classList.remove('active'));
+
+    el.classList.add('active');
+
+    stance = el.dataset.stance;
+
+  });
+
+});
+
+/* INTENSITY */
+
+let intensity = "sharp";
+
+document.querySelectorAll('.int-btn').forEach(el => {
+
+  el.addEventListener('click', () => {
+
+    document
+      .querySelectorAll('.int-btn')
+      .forEach(x => x.classList.remove('active'));
+
+    el.classList.add('active');
+
+    intensity = el.dataset.intensity;
+
+  });
+
+});
+
+/* ENABLE START BUTTON */
+
+const topicInput =
+  document.getElementById('topic-input');
+
+const startBtn =
+  document.getElementById('start-btn');
+
+topicInput.addEventListener('input', () => {
+
+  startBtn.disabled =
+    !topicInput.value.trim();
+
+});
+
+/* START */
+
+startBtn.addEventListener('click', () => {
+
+  alert(
+    `Debate Started!\n\nTopic: ${topicInput.value}\nAI Stance: ${stance}\nIntensity: ${intensity}`
+  );
+
+});
