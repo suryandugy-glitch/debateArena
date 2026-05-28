@@ -1,111 +1,220 @@
-body {
-  margin: 0;
-  background: #f2ead8;
-  font-family: 'Courier Prime', monospace;
+:root {
+  --black: #050c07;
+  --deep: #090f0a;
+  --card: #111f12;
+  --border: #1d3320;
+  --amber: #c8780e;
+  --amber-b: #e89c30;
+  --green: #3a7a48;
+  --text: #b8ccbe;
+  --white: #ecf4ec;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Libre Baskerville', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* FIRELIES */
+#fireflies {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* HEADER */
 
 header {
-  background: #1a1108;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
 }
 
-h1 {
-  margin: 0;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem;
+.header-tape {
+  background: linear-gradient(
+    90deg,
+    #7a4606,
+    var(--amber),
+    #7a4606
+  );
+
+  text-align: center;
+  padding: 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
 }
+
+.header-inner {
+  padding: 2rem;
+  text-align: center;
+}
+
+.header-eyebrow {
+  color: var(--amber);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+}
+
+.header-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--white);
+}
+
+.header-logo span {
+  color: var(--amber-b);
+}
+
+.header-sub {
+  margin-top: 10px;
+  color: #7a9e82;
+  font-style: italic;
+}
+
+/* MAIN */
 
 main {
   max-width: 900px;
   margin: auto;
-  padding: 20px;
+  padding: 2rem;
 }
 
-#setup {
+.section-head {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-num {
+  color: var(--amber);
+  font-weight: bold;
+}
+
+.section-title {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+/* TOPIC */
+
+.topic-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
 }
 
 #topic-input {
-  padding: 20px;
-  font-size: 1.2rem;
-  min-height: 120px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  resize: none;
+  font-size: 1.1rem;
 }
 
-.modes {
+/* STANCE */
+
+.stance-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+.stance-opt {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  text-align: center;
+  cursor: pointer;
+  background: var(--card);
+  transition: 0.3s;
+}
+
+.stance-opt:hover {
+  transform: translateY(-4px);
+}
+
+.stance-opt.active {
+  border-color: var(--amber);
+}
+
+.stance-label {
+  display: block;
+  margin-top: 10px;
+}
+
+/* INTENSITY */
+
+.intensity-row {
   display: flex;
   gap: 10px;
 }
 
-.stance {
+.int-btn {
   flex: 1;
-  padding: 15px;
-  border: none;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
   cursor: pointer;
-  font-size: 1rem;
 }
 
-.active {
-  background: black;
-  color: white;
+.int-btn.active {
+  border-color: var(--amber);
+  color: var(--amber-b);
 }
+
+/* START BUTTON */
 
 #start-btn {
-  padding: 20px;
-  background: crimson;
-  color: white;
-  border: none;
+  width: 100%;
+  margin-top: 30px;
+  padding: 1.3rem;
   font-size: 1.2rem;
-  cursor: pointer;
-}
-
-#debate {
-  display: none;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#chat {
-  background: white;
-  border: 2px solid black;
-  height: 500px;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.msg {
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 10px;
-  max-width: 75%;
-}
-
-.user {
-  background: black;
-  color: white;
-  margin-left: auto;
-}
-
-.ai {
-  background: #eee;
-}
-
-.input-wrap {
-  display: flex;
-}
-
-#user-input {
-  flex: 1;
-  padding: 20px;
-}
-
-#send-btn {
-  width: 150px;
   border: none;
-  background: black;
-  color: white;
   cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    #7a4606,
+    var(--amber),
+    #7a4606
+  );
+
+  color: white;
+}
+
+#start-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .stance-grid{
+    grid-template-columns:1fr;
+  }
+
+  .intensity-row{
+    flex-direction:column;
+  }
+
+  .header-logo{
+    font-size:2.8rem;
+  }
+
 }
