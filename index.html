@@ -1,74 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#050c07">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Debate Arena</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime&family=Playfair+Display&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 
+  <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<canvas id="fireflies"></canvas>
+
 <header>
-  <h1>⚔ Debate Arena</h1>
-  <p>The AI that never backs down.</p>
+  <div class="header-tape">
+    <span class="tape-inner">
+      🌿 PRESENTED BY DEBATE ARENA 🌿 THE AI THAT NEVER BACKS DOWN 🌿
+    </span>
+  </div>
+
+  <div class="header-inner">
+    <div class="header-titles">
+      <div class="header-eyebrow">Official Programme · Est. 2026</div>
+      <div class="header-logo">Debate<span>Arena</span></div>
+      <div class="header-sub">
+        The AI that fights back — on any side, any topic
+      </div>
+    </div>
+
+    <div class="header-date" id="header-date-el"></div>
+  </div>
 </header>
 
 <main>
 
+  <!-- SETUP -->
   <div id="setup">
 
-    <textarea
-      id="topic-input"
-      placeholder="Enter debate topic..."
-    ></textarea>
+    <div class="fight-card-header">
+      <div class="fight-headline">
+        Enter The <em>Arena</em>
+      </div>
 
-    <div class="modes">
-
-      <button class="stance active" data-stance="for">
-        FOR
-      </button>
-
-      <button class="stance" data-stance="against">
-        AGAINST
-      </button>
-
-      <button class="stance" data-stance="devil">
-        DEVIL
-      </button>
-
+      <div class="fight-subline">
+        Set your motion — the AI takes the opposite corner
+      </div>
     </div>
 
-    <button id="start-btn">
-      Start Debate
-    </button>
+    <!-- TOPIC -->
+    <div>
+      <div class="section-head">
+        <div class="section-num">I</div>
+        <div class="section-title">Write the motion</div>
+      </div>
 
-  </div>
+      <div class="topic-block">
+        <div class="topic-block-inner">
+          <textarea
+            id="topic-input"
+            rows="3"
+            placeholder="Social media does more harm than good to society…"
+          ></textarea>
+        </div>
+      </div>
+    </div>
 
-  <div id="debate">
+    <!-- STANCE -->
+    <div class="stance-wrap">
 
-    <div id="chat"></div>
+      <div class="section-head">
+        <div class="section-num">II</div>
+        <div class="section-title">AI fights from the</div>
+      </div>
 
-    <div class="input-wrap">
+      <div class="stance-grid">
 
-      <textarea
-        id="user-input"
-        placeholder="Type your argument..."
-      ></textarea>
+        <div class="stance-opt active" data-stance="for">
+          <span class="stance-icon-big">⚔️</span>
+          <span class="stance-label">For the Motion</span>
+        </div>
 
-      <button id="send-btn">
-        Send
+        <div class="stance-opt" data-stance="against">
+          <span class="stance-icon-big">🛡️</span>
+          <span class="stance-label">Against the Motion</span>
+        </div>
+
+        <div class="stance-opt" data-stance="devil">
+          <span class="stance-icon-big">😈</span>
+          <span class="stance-label">Devil's Advocate</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- INTENSITY -->
+    <div class="intensity-wrap">
+
+      <div class="section-head">
+        <div class="section-num">III</div>
+        <div class="section-title">Set AI aggression</div>
+      </div>
+
+      <div class="intensity-row">
+
+        <button class="int-btn" data-intensity="polite">
+          💬 Polite
+        </button>
+
+        <button class="int-btn active" data-intensity="sharp">
+          ⚡ Sharp
+        </button>
+
+        <button class="int-btn" data-intensity="brutal">
+          🔥 Brutal
+        </button>
+
+        <button class="int-btn" data-intensity="academic">
+          🎓 Academic
+        </button>
+
+      </div>
+    </div>
+
+    <div class="start-outer">
+      <button id="start-btn" disabled>
+        ⚔ Step Into The Arena
       </button>
-
     </div>
 
   </div>
 
 </main>
 
+<!-- External JS -->
 <script src="script.js"></script>
+
 </body>
 </html>
