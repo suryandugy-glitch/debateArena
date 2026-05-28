@@ -13,6 +13,3 @@ An AI-powered debate arena website where users can challenge AI on any topic.
 - HTML
 - CSS
 - JavaScript
-
-## Developed By
-Godson
